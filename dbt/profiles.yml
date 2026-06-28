@@ -1,0 +1,12 @@
+earthquake_pipeline:
+  outputs:
+    dev:
+      dbname: earthquake_db
+      host: postgres
+      pass: eq_pw
+      port: 5432
+      schema: raw
+      threads: 4
+      type: postgres
+      user: earthquake_user
+  target: dev

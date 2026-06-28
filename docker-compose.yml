@@ -17,7 +17,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
   airflow:
-    image: apache/airflow:2.9.1
+    build: ./airflow
     env_file: .env
     ports:
       - '8080:8080'
@@ -30,6 +30,7 @@ services:
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./ingestion:/opt/airflow/ingestion
+      - ./dbt:/opt/airflow/dbt
     depends_on:
       - postgres
 

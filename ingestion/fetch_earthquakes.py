@@ -25,8 +25,12 @@ def fetch_events(start_time, end_time):
 def insert_events(events, cur):
     for event in events:
         cur.execute(
-            "INSERT INTO raw.earthquakes_raw (raw_json) VALUES (%s)",
-            (json.dumps(event),),
+            """
+            INSERT INTO raw.earthquakes_raw (event_id, raw_json)
+            VALUES (%s, %s)
+            ON CONFLICT (event_id) DO NOTHING
+            """,
+            (event['id'], json.dumps(event))
         )
     return len(events)
 
